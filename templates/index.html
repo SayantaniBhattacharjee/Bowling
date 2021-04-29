@@ -2,24 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
     <title>{{title}}</title>
     <style>
         table, th, td {
           border: 1px solid black;
         }
     </style>
-    <script>
-        function myFunction() {
-          document.getElementById("userList").deleteRow();
-        }
-</script>
+<!--    <script>-->
+<!--        function myFunction() {-->
+<!--          document.getElementById("userList").deleteRow();-->
+<!--        }-->
+<!--</script>-->
 </head>
 <body>
-   <h1>Welcome to Bowling Challenge</h1>
-<!--       <form action="{{ getInput }}" method="post">-->
-<!--            <input type="text" name="projectFilepath">-->
-<!--            <input type="submit">-->
-<!--        </form>-->
+   <h1>Checkout your Bowling Score below: </h1>
         <table id="userList" class="table table-striped table-bordered table-md">
                 <tbody>
                       <tr>
@@ -41,5 +38,7 @@
                       {% endfor %}
                 </tbody>
         </table>
+   <h1>If you want to play again, click the link below:</h1>
+    <div id="button"><a href="/"><h2>Try another input</h2></a></div>
 </body>
 </html>

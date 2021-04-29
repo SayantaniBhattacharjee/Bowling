@@ -15,6 +15,11 @@ class MyTestCase(unittest.TestCase):
         finalScore, total = self.bowl.bowling_score(inputRolls)
         self.assertEqual(finalScore, 167)
         
+    def test_givenInputWithStrings(self):
+        inputRolls = self.giveninputScores['givenStringsInput']
+        finalScore, total = self.bowl.bowling_score(inputRolls)
+        self.assertEqual(finalScore, 167)
+        
     def test_spareInTenth(self):
         inputRolls = self.giveninputScores['spareInTenthInput']
         finalScore, total = self.bowl.bowling_score(inputRolls)

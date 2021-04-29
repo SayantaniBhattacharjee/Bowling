@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache">
     <title>{{title}}</title>
 </head>
 <body>
+<h1>Welcome to Bowling Challenge</h1>
     <div>
-
-        <p><b>Enter any input or Copy & Paste any of the following inputs:</b></p>
+        <p><b><u>Enter any input or Copy & Paste any of the following inputs:</u></b></p>
         <p><b>Given Input:</b>[10, 7, 3, 9, 0, 10, 0, 8, 8, 2, 0, 6, 10, 10, 10, 8, 1]</p>
-        <p><b>Spare in Tenth Frame Input:</b> [10, 7, 3, 9, 0, 10, 0, 8, 8, 2, 0, 6, 10, 10, 8, 2, 5]</p>
-        <p><b>All Strikes Input:</b> [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]</p>
-        <p><b>No Spare or Strike in Tenth Frame Input:</b> [10, 7, 3, 9, 0, 10, 0, 8, 8, 2, 0, 6, 10, 10, 5, 2]</p>
-        <p><b>Single Strike Input:</b> [0, 0, 10, 0, 7, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]</p>
-        <p><b>Random Input (Real example):</b> [8, 0, 7, 0, 5, 3, 9, 1, 9, 1, 10, 8, 0, 5, 1, 3, 7, 9, 0]</p>
-        <p><b>Random Input with Spare in Tenth (Real example):</b> [8, 2, 9, 0, 4, 4, 7, 2, 9, 0, 10, 10, 8, 0, 3, 5, 9, 1, 7]</p>
-        <p><b>Error Input:</b> [0, 0, 10, 0, 7, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 7]</p>
+        <p><b>Given Input with Strings:</b>[X, 7, /, 9, 0, X, 0, 8, 8, /, 0, 6, X, X, X, 8, 1]</p>
+        <p><b>Spare in Tenth Frame Input:</b>[10, 7, 3, 9, 0, 10, 0, 8, 8, 2, 0, 6, 10, 10, 8, 2, 5]</p>
+        <p><b>All Strikes Input:</b>[10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]</p>
+        <p><b>No Spare or Strike in Tenth Frame Input:</b>[10, 7, 3, 9, 0, 10, 0, 8, 8, 2, 0, 6, 10, 10, 5, 2]</p>
+        <p><b>Single Strike Input:</b>[0, 0, 10, 0, 7, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]</p>
+        <p><b>Random Input (Real example):</b>[8, 0, 7, 0, 5, 3, 9, 1, 9, 1, 10, 8, 0, 5, 1, 3, 7, 9, 0]</p>
+        <p><b>Random Input with Spare in Tenth (Real example):</b>[8, 2, 9, 0, 4, 4, 7, 2, 9, 0, 10, 10, 8, 0, 3, 5, 9, 1, 7]</p>
+        <p><b>Error Input:</b>[0, 0, 10, 0, 7, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 7]</p>
     </div>
    <form action="{{ getInput }}" method="post">
             <input type="text" name="projectFilepath">

@@ -3,8 +3,24 @@ from ast import literal_eval
 class BowlingChallenge:
     
     _table_data = []
+
+    ############################### Convert all inputs to Integer #################################
+    def convertStringstoInt(self, val):
+        val = val.replace('[', '').replace(']', '')
+        inPutList = list(val.split(","))
+        for i in range(0, len(inPutList)):
+            try:
+                inPutList[i] = int(inPutList[i])
+            except ValueError:
+                if (inPutList[i] == ' /' or inPutList[i] == '/' or inPutList[i] == '/ '):
+                    inPutList[i] = 10 - int(inPutList[i - 1])
+                elif (inPutList[i] == ' X' or inPutList[i] == 'X' or inPutList[i] == 'X '):
+                    inPutList[i] = 10
+                elif (inPutList[i] == ' -' or inPutList[i] == '-' or inPutList[i] == '- '):
+                    inPutList[i] = 0
+        return inPutList
     
-    ############################### Read inputs from file Inputs.txt ###############################
+    ############################### Read inputs from Inputs.txt #########################
     def readInput(self, file):
         inputScores = {}
         try:
@@ -18,7 +34,9 @@ class BowlingChallenge:
             (key, val) = input.split('=')
             key = key[:-1]
             val = val[1:]
-            inputScores[key] = literal_eval(val)
+
+            inputScores[key] = self.convertStringstoInt(val)
+
         return inputScores
 
     ################# Store each frame rolls and cumulative scores in a dictionary #################
@@ -32,6 +50,7 @@ class BowlingChallenge:
 
     ###################################### Score Calculator ########################################
     def bowling_score(self, rolls):
+        self._table_data.clear()
         frameScore = 0
         totalScore = 0
         frameID = 0
@@ -100,6 +119,8 @@ if __name__ == '__main__':
     file = '../Inputs.txt' 
     game = BowlingChallenge()
     
-    #giveninputScores = game.readInput(file)
-    #inputRolls = giveninputScores['singleStrikeInput']
-    #print(game.bowling_score(inputRolls))
+    giveninputScores = game.readInput(file)
+    inputRolls = giveninputScores['givenStringsInput']
+
+
+    print(game.bowling_score(inputRolls))
