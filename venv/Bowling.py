@@ -2,6 +2,9 @@ from ast import literal_eval
 
 class BowlingChallenge:
     
+    _table_data = []
+    
+    ############################### Read inputs from file Inputs.txt ###############################
     def readInput(self, file):
         inputScores = {}
         try:
@@ -11,45 +14,92 @@ class BowlingChallenge:
             fp.close()
         content = [x.strip() for x in content]
         for input in content:
+            #storing the input scores as dict(key, val)
             (key, val) = input.split('=')
             key = key[:-1]
             val = val[1:]
             inputScores[key] = literal_eval(val)
         return inputScores
 
-    def bowling_score(self, rolls):
+    ################# Store each frame rolls and cumulative scores in a dictionary #################
+    def eachFrameRolls(self, data_i, frameID, roll1, roll2, roll3, frameScore):
+        data_i['frame'] = frameID
+        data_i['roll1'] = roll1
+        data_i['roll2'] = roll2
+        data_i['roll3'] = roll3
+        data_i['total'] = frameScore
+        return data_i
 
+    ###################################### Score Calculator ########################################
+    def bowling_score(self, rolls):
         frameScore = 0
         totalScore = 0
         frameID = 0
+        excessScore = 0
         nextframe = True
-        for roll_index, roll in enumerate(rolls):
-            if frameID == 10:
-                break
-            if roll == 10:
-                frameScore += rolls[roll_index + 1]
-                frameScore += rolls[roll_index + 2]
-                frameID += 1
-            elif not nextframe:
-                if rolls[roll_index - 1] + roll == 10:
+        data_i={}
+        try:
+            for roll_index, roll in enumerate(rolls):
+                if(frameID == 10):
+                    break
+                if(roll == 10):
                     frameScore += rolls[roll_index + 1]
-                frameID += 1
-                nextframe = True
-            else:
-                nextframe = False
-            frameScore += roll
-            #print(roll_index, ' ', roll)
-            #print(frameScore)
-            #print('\n')
-        totalScore = frameScore
+                    frameScore += rolls[roll_index + 2]
+                    if(frameID != 9):
+                        self.eachFrameRolls(data_i, frameID + 1, roll, None, None, frameScore)
+                        self._table_data.append(data_i)
+                    elif (frameID == 9):
+                        self.eachFrameRolls(data_i, frameID + 1, roll, rolls[roll_index + 1], rolls[roll_index + 2], frameScore)
+                    frameID += 1
+                elif not nextframe:
+                    if rolls[roll_index - 1] + roll == 10:
+                        frameScore += rolls[roll_index + 1]
+                        self.eachFrameRolls(data_i, frameID + 1,  rolls[roll_index - 1], roll, None, frameScore)
+                    frameID += 1
+                    nextframe = True
+                else:
+                    nextframe = False
+                    data_i = {}
+                    self.eachFrameRolls(data_i, frameID + 1, roll, rolls[roll_index + 1], None, frameScore)
+                    self._table_data.append(data_i)
+                frameScore += roll
 
-        return totalScore
+                data_i={}
+                if(frameID == 10):
+                    if(roll == 10):
+                        self.eachFrameRolls(data_i, frameID, roll, rolls[roll_index + 1], rolls[roll_index + 2], frameScore)
+                    elif(rolls[roll_index - 1] + roll == 10):
+                        self._table_data.pop()
+                        self.eachFrameRolls(data_i, frameID,  rolls[roll_index - 1], roll, rolls[roll_index + 1], frameScore)
+                    elif(roll_index + 1 != len(rolls)):
+                        #self._table_data.pop()
+                        self.eachFrameRolls(data_i, frameID + 1, roll, rolls[roll_index + 1], None,
+                                            frameScore)
+                    elif (roll != 10 and roll_index + 1 == len(rolls)):
+                        self._table_data.pop()
+                        self.eachFrameRolls(data_i, frameID, rolls[roll_index - 1], roll, None,
+                                        frameScore)
+            self._table_data.append(data_i)
+
+            #Brute Force approach towards error handling inputs with frames > 10
+            for i in self._table_data:
+                if i['frame'] > 10:
+                    excessScore = i['roll1'] + i['roll2']
+                    self._table_data = []
+
+            totalScore = frameScore - excessScore
+            return totalScore, self._table_data
+
+        except IndexError:
+            self._table_data = []
+            print('Looks like the game still has a few rolls left!')
+            return totalScore, self._table_data
 
 if __name__ == '__main__':
-    file = 'C:/Users/sayan/PycharmProjects/Bowling/Inputs.txt'
     
+    file = '../Inputs.txt' 
     game = BowlingChallenge()
     
-    giveninputScores = game.readInput(file)
-    inputRolls = giveninputScores['givenInput']
-    print(game.bowling_score(inputRolls))
+    #giveninputScores = game.readInput(file)
+    #inputRolls = giveninputScores['singleStrikeInput']
+    #print(game.bowling_score(inputRolls))
