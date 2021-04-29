@@ -15,7 +15,7 @@ def form():
     if request.method == 'POST':
         form_data = request.form
 
-        #_filename = 'C:/Users/sayan/PycharmProjects/Bowling/Inputs.txt'
+        #_filename = ''
 
         bowl = BowlingChallenge()
         #giveninputScores = bowl.readInput(_filename)

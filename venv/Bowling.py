@@ -122,5 +122,4 @@ if __name__ == '__main__':
     giveninputScores = game.readInput(file)
     inputRolls = giveninputScores['givenStringsInput']
 
-
     print(game.bowling_score(inputRolls))
